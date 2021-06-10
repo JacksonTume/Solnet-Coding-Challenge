@@ -5,4 +5,14 @@
 		<listener-class>nz.co.solnet.BootstrapConfig</listener-class>
 	</listener>
 
+	<servlet>
+		<servlet-name>FetchAllTasks</servlet-name>
+		<servlet-class>nz.co.solnet.api.FetchAllTasks</servlet-class>
+	</servlet>
+
+
+	<servlet-mapping>
+		<servlet-name>FetchAllTasks</servlet-name>
+		<url-pattern>/fetch-all-tasks</url-pattern>
+	</servlet-mapping>
 </web-app>
