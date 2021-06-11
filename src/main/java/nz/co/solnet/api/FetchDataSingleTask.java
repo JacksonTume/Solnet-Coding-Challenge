@@ -29,7 +29,7 @@ public class FetchDataSingleTask extends HttpServlet {
             Util.addStyleSheet(out);
             out.println("<table>");
 
-            Util.addHTMLHeaders(out);
+            Util.addHTMLTableHeaders(out);
             while(resultSet.next()){
                 String id = req.getParameter("id");
                 String idCompare = resultSet.getString("id");
@@ -39,9 +39,7 @@ public class FetchDataSingleTask extends HttpServlet {
             }
             out.println("</table>");
 
-            Util.addGoBack(out);
-            out.println("</div>");
-            out.close();
+            Util.endHTML(out);
 
         } catch (SQLException sqlException) {
             logger.error("Error initialising database connection, or error with adding data", sqlException);

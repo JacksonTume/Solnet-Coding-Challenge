@@ -55,4 +55,14 @@
 		<servlet-name>UpdateTask</servlet-name>
 		<url-pattern>/update-data</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DeleteTask</servlet-name>
+		<servlet-class>nz.co.solnet.api.DeleteTask</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DeleteTask</servlet-name>
+		<url-pattern>/delete-data</url-pattern>
+	</servlet-mapping>
 </web-app>

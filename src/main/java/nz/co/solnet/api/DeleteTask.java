@@ -1,6 +1,5 @@
 package nz.co.solnet.api;
 
-
 import nz.co.solnet.helper.DatabaseHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,34 +12,26 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
-public class FetchAllTasks extends HttpServlet {
-
+public class DeleteTask  extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(DatabaseHelper.class);
     private static final String DATABASE_URL = "jdbc:derby:applicationdb;create=true";
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
 
         try (Connection conn = DriverManager.getConnection(DATABASE_URL)) {
-
-            Statement statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM tasks ORDER BY id ASC");
+            PreparedStatement statement = conn.prepareStatement("DELETE FROM tasks WHERE id=?");
+            statement.setString(1, req.getParameter("id"));
+            statement.execute();
 
             PrintWriter out = resp.getWriter();
             Util.addStyleSheet(out);
-            out.println("<table>");
-            Util.addHTMLTableHeaders(out);
 
-            while (resultSet.next()) {
-                Util.addHTMLTable(resultSet, out);
-            }
-            out.println("</table>");
-
+            out.println("<h2>Successfully deleted task</h2>");
             Util.endHTML(out);
 
         } catch (SQLException sqlException) {
             logger.error("Error initialising database connection, or error with adding data", sqlException);
-        }
-    }
+        }    }
 }

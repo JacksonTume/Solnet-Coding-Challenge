@@ -23,6 +23,15 @@ public class AddData extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
 
+        // validate input
+        if(!Util.validateInput(req)){
+            PrintWriter out = resp.getWriter();
+            Util.addStyleSheet(out);
+            out.println("<h2>Incorrect input while updating task - check output to see exact problem</h2>");
+            Util.endHTML(out);
+            return;
+        }
+
         try (Connection conn = DriverManager.getConnection(DATABASE_URL)) {
             PrintWriter out = resp.getWriter();
             Util.addStyleSheet(out);
@@ -33,18 +42,11 @@ public class AddData extends HttpServlet {
 
             statement.execute();
 
-            String addedTask = Json.createObjectBuilder()
-                    .add("title", req.getParameter("title"))
-                    .add("description", req.getParameter("description"))
-                    .add("due_date", req.getParameter("due_date"))
-                    .add("status", req.getParameter("status"))
-                    .add("current_date", String.valueOf(java.time.LocalDate.now()))
-                    .build().toString();
-            logger.info("Added new task:\n" + addedTask);
+            out.println("<h2>Successfully added data to table</h2><table>");
+            Util.addHTMLTable(req, out);
+            out.println("</table>");
 
-            out.println("<h2>Successfully added data to table</h2>");
-            Util.addGoBack(out);
-            out.close();
+            Util.endHTML(out);
 
         } catch (SQLException sqlException) {
             logger.error("Error initialising database connection, or error with adding data", sqlException);
