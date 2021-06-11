@@ -16,6 +16,16 @@
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>FetchAllOverdueTasks</servlet-name>
+		<servlet-class>nz.co.solnet.api.FetchAllOverdueTasks</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>FetchAllOverdueTasks</servlet-name>
+		<url-pattern>/get-overdue-data</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>AddData</servlet-name>
 		<servlet-class>nz.co.solnet.api.AddData</servlet-class>
 	</servlet>

@@ -4,15 +4,13 @@ import nz.co.solnet.helper.DatabaseHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.json.Json;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.*;
-import java.util.Calendar;
-import javax.json.Json;
 
 public class AddData extends HttpServlet {
 
@@ -40,7 +38,7 @@ public class AddData extends HttpServlet {
                     .add("status", req.getParameter("status"))
                     .add("current_date", String.valueOf(java.time.LocalDate.now()))
                     .build().toString();
-            logger.info("Added new task:\n"+addedTask);
+            logger.info("Added new task:\n" + addedTask);
 
         } catch (SQLException sqlException) {
             logger.error("Error initialising database connection, or error with adding data", sqlException);
