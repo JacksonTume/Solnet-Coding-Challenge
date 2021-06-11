@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
+import java.time.LocalDate;
 
 public class FetchAllOverdueTasks extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(DatabaseHelper.class);
@@ -18,38 +19,34 @@ public class FetchAllOverdueTasks extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+
         try (Connection conn = DriverManager.getConnection(DATABASE_URL)) {
 
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM tasks ORDER BY id ASC");
 
             PrintWriter out = resp.getWriter();
-            out.println("<head>\n" +
-                    "\t<link rel=\"stylesheet\" href=\"markdown.css\">" +
-                    "</head>\n");
+
+            Util.addStyleSheet(out);
+
             out.println("<table>");
-            out.println("<tr><th>ID</th><th>Title</th><th>Description</th><th>Due Date</th><th>Status</th><th>Creation Date</th></tr>");
+            Util.addHTMLHeaders(out);
 
             while(resultSet.next()){
                 Date dueDate = resultSet.getDate("due_date");
-                Date creationDate = resultSet.getDate("creation_date");
+                Date currentDate = Date.valueOf(LocalDate.now());
 
-                if(dueDate.compareTo(creationDate) == -1){
-                    out.println("<tr>");
-
-                    out.println("<td>" + resultSet.getString("id") + "</td>");
-                    out.println("<td>" + resultSet.getString("title") + "</td>");
-                    out.println("<td>" + resultSet.getString("description") + "</td>");
-                    out.println("<td>" + resultSet.getDate("due_date") + "</td>");
-                    out.println("<td>" + resultSet.getString("status") + "</td>");
-                    out.println("<td>" + resultSet.getDate("creation_date") + "</td>");
-
-
-                    out.println("</tr>");
+                // if the due date is less than the current date
+                if(dueDate.compareTo(currentDate) == -1){
+                    Util.addHTMLTable(resultSet, out);
                 }
             }
             out.println("</table>");
 
+            Util.addGoBack(out);
+            out.println("</div>");
+            out.close();
 
         } catch (SQLException sqlException) {
             logger.error("Error initialising database connection, or error with adding data", sqlException);

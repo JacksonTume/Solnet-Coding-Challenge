@@ -16,6 +16,17 @@
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>FetchDataSingleTask</servlet-name>
+		<servlet-class>nz.co.solnet.api.FetchDataSingleTask</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>FetchDataSingleTask</servlet-name>
+		<url-pattern>/get-single-task</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
 		<servlet-name>FetchAllOverdueTasks</servlet-name>
 		<servlet-class>nz.co.solnet.api.FetchAllOverdueTasks</servlet-class>
 	</servlet>

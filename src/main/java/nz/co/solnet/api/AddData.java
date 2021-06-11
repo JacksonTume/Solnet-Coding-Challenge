@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.*;
 
 public class AddData extends HttpServlet {
@@ -20,7 +21,11 @@ public class AddData extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+
         try (Connection conn = DriverManager.getConnection(DATABASE_URL)) {
+            PrintWriter out = resp.getWriter();
+            Util.addStyleSheet(out);
 
             PreparedStatement statement = conn.prepareStatement("INSERT INTO tasks VALUES (DEFAULT, ?, ?, ?, ?, ?)");
             statement.setString(1, req.getParameter("title"));
@@ -39,6 +44,10 @@ public class AddData extends HttpServlet {
                     .add("current_date", String.valueOf(java.time.LocalDate.now()))
                     .build().toString();
             logger.info("Added new task:\n" + addedTask);
+
+            out.println("<h2>Successfully added data to table</h2>");
+            Util.addGoBack(out);
+            out.close();
 
         } catch (SQLException sqlException) {
             logger.error("Error initialising database connection, or error with adding data", sqlException);
