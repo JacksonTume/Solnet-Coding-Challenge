@@ -21,14 +21,28 @@ public class DeleteTask  extends HttpServlet {
         resp.setContentType("text/html");
 
         try (Connection conn = DriverManager.getConnection(DATABASE_URL)) {
-            PreparedStatement statement = conn.prepareStatement("DELETE FROM tasks WHERE id=?");
-            statement.setString(1, req.getParameter("id"));
-            statement.execute();
 
+            Statement stmt = conn.createStatement();
+            ResultSet resultSet = stmt.executeQuery("SELECT * FROM tasks ORDER BY id ASC");
             PrintWriter out = resp.getWriter();
             Util.addStyleSheet(out);
+            boolean hasFound = false;
+            String id = req.getParameter("id");
 
-            out.println("<h2>Successfully deleted task</h2>");
+            while(resultSet.next()){
+                String idCompare = resultSet.getString("id");
+                if(id.equals(idCompare)){
+                    PreparedStatement statement = conn.prepareStatement("DELETE FROM tasks WHERE id=?");
+                    statement.setString(1, req.getParameter("id"));
+                    statement.execute();
+
+                    out.println("<h2>Successfully deleted task</h2>");
+                    hasFound = true;
+                }
+            }
+
+            if(!hasFound)    out.println("<h2>Can't find element with ID: " + id + "</h2>");
+
             Util.endHTML(out);
 
         } catch (SQLException sqlException) {

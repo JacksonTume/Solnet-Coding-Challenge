@@ -44,6 +44,7 @@ public class Util {
     }
 
     public static void addHTMLTable(HttpServletRequest req, PrintWriter out) throws SQLException {
+        out.println("<tr><th>Title</th><th>Description</th><th>Due Date</th><th>Status</th><th>Creation Date</th></tr>");
         out.println("<tr>");
 
         out.println("<td>" + req.getParameter("title") + "</td>");

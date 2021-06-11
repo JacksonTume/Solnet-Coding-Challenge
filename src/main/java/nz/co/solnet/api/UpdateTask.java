@@ -4,7 +4,6 @@ import nz.co.solnet.helper.DatabaseHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.json.Json;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +40,7 @@ public class UpdateTask extends HttpServlet {
 
             statement.execute();
 
-            out.println("<h2>Successfully updated data</h2>");
+            out.println("<h2>Successfully updated data</h2><table>");
             Util.addHTMLTable(req, out);
             out.println("</table>");
 
