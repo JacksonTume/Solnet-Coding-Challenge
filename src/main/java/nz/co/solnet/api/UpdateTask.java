@@ -13,11 +13,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
-public class AddData extends HttpServlet {
-
+public class UpdateTask extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(DatabaseHelper.class);
     private static final String DATABASE_URL = "jdbc:derby:applicationdb;create=true";
-
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,9 +25,10 @@ public class AddData extends HttpServlet {
             PrintWriter out = resp.getWriter();
             Util.addStyleSheet(out);
 
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO tasks VALUES (DEFAULT, ?, ?, ?, ?, ?)");
+            PreparedStatement statement = conn.prepareStatement("UPDATE tasks set title=?, description=?, due_date=?,status=?,creation_date=? where id=?");
 
             Util.addParametersToPreparedStatement(statement, req);
+            statement.setString(6, req.getParameter("id"));
 
             statement.execute();
 
@@ -42,12 +41,12 @@ public class AddData extends HttpServlet {
                     .build().toString();
             logger.info("Added new task:\n" + addedTask);
 
-            out.println("<h2>Successfully added data to table</h2>");
+            out.println("<h2>Successfully updated data</h2>");
             Util.addGoBack(out);
             out.close();
 
         } catch (SQLException sqlException) {
-            logger.error("Error initialising database connection, or error with adding data", sqlException);
+            logger.error("Error initialising database connection, or error with updating data", sqlException);
         }
     }
 }

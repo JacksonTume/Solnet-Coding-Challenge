@@ -90,6 +90,33 @@
             </tr>
         </table>
     </form>
+
+    <h2>Update Task</h2>
+    <form action="update-data" method="post">
+        <table>
+            <tr>
+                <td>ID of the task you want to update:</td>
+                <td><input type="text" name="id"></td>
+            </tr>
+            <tr>
+                <td>New Title:</td>
+                <td><input type="text" name="title"></td>
+            </tr>
+            <tr>
+                <td>New Description:</td>
+                <td><input type="text" name="description"></td>
+            </tr>
+            <tr>
+                <td>New Due Date: (yyyy-mm-dd)</td>
+                <td><input type="text" name="due_date"></td>
+            </tr>
+            <tr>
+                <td>New Status:</td>
+                <td><input type="text" name="status"></td>
+            </tr>
+        </table>
+        <input type="submit" value="Submit">
+    </form>
 </div>
 </body>
 </html>

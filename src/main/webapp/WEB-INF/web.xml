@@ -45,4 +45,14 @@
 		<servlet-name>AddData</servlet-name>
 		<url-pattern>/add-data</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>UpdateTask</servlet-name>
+		<servlet-class>nz.co.solnet.api.UpdateTask</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>UpdateTask</servlet-name>
+		<url-pattern>/update-data</url-pattern>
+	</servlet-mapping>
 </web-app>
