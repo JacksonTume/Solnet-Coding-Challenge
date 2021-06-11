@@ -45,3 +45,7 @@ Goto the base folder of the application and execute the following command to lau
 The application will be available at [http://localhost:8080](http://localhost:8080)  
  
 You can replace the jetty plugin with something you feel comfortable using as well but make sure we have clear instructions to run your application. 
+
+
+-----------------
+Make sure that with the IDE you are using, you add the library in the dependencies folder.

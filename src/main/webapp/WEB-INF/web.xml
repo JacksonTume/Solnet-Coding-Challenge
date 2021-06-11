@@ -10,9 +10,18 @@
 		<servlet-class>nz.co.solnet.api.FetchAllTasks</servlet-class>
 	</servlet>
 
-
 	<servlet-mapping>
 		<servlet-name>FetchAllTasks</servlet-name>
-		<url-pattern>/fetch-all-tasks</url-pattern>
+		<url-pattern>/get-data</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AddData</servlet-name>
+		<servlet-class>nz.co.solnet.api.AddData</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AddData</servlet-name>
+		<url-pattern>/add-data</url-pattern>
 	</servlet-mapping>
 </web-app>

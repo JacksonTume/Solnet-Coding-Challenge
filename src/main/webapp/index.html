@@ -36,7 +36,37 @@
 		</ol>
 	</div>
 
-<h1>HELLO WORLD</h1>
+	<br>
+	<form action="add-data" method="post">
+		<table>
+			<tr>
+				<td>Title: </td>
+				<td><input type="text" name="title"></td>
+			</tr>
+			<tr>
+				<td>Description: </td>
+				<td><input type="text" name="description"></td>
+			</tr>
+			<tr>
+				<td>Due Date: (yyyy-mm-dd)</td>
+				<td><input type="text" name="due_date"></td>
+			</tr>
+			<tr>
+				<td>Status: </td>
+				<td><input type="text" name="status"></td>
+			</tr>
+		</table>
+		<input type="submit" value="Submit">
+	</form>
+
+	<br>
+	<form action="get-data" method="get">
+		<table>
+			<tr>
+				<td><input type="submit" value="Get All Data"></td>
+			</tr>
+		</table>
+	</form>
 	</body>
 </html>
 
